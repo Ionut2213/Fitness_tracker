@@ -41,3 +41,9 @@ def get_the_category():
         return CATEGORIES[category]
     print("Invalid Category. Please enter 'W' for Walk or 'IB' for Inside Bike.")
     return get_the_category()
+
+
+
+def get_note():
+    note = input("Optional you can add a note")
+    return note if note.strip() else "No note Added"
