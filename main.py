@@ -1,7 +1,7 @@
 import pandas as pd
 import csv
 from datetime import datetime
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 # import all the functions from data_entry.py file
 
@@ -39,7 +39,7 @@ class CSV:
         print("Your new entry has been successfully added")
 
     @classmethod
-    def get_data_from_csc(cls, start_date, end_date):
+    def get_data_from_csv(cls, start_date, end_date):
         df = pd.read_csv(cls.CSV_FILE)
 
         df.columns = df.columns.str.lower()
@@ -60,7 +60,7 @@ class CSV:
             total_walk = filered_df[filered_df["category"] == "Walk"]["amount_of_km"].sum()
             total_inside_bike = filered_df[filered_df["category"] == "Inside Bike"]["amount_of_km"].sum()
 
-            print("-------------------------")
+            print("-------------------------------------------------------------")
             print('\nSummary: ')
             print(f"Total Walk: {total_walk:.2f}")
             print(f"Total Inside Bike: {total_inside_bike:.2f}")
@@ -83,6 +83,23 @@ def add_date():
     note = get_note()
     CSV.add_entry(date, amount_of_km, category, note)
 
+# Part to generate chart
+def get_data_plot_pie(df):
+
+    total_walk = df[df['category'] == 'Walk']['amount_of_km'].sum()
+    total_inside_bike = df[df['category'] == 'Inside bike']['amount_of_km'].sum()
+
+    labels = ['Walk', 'Inside Bike']
+    sizes = [total_walk, total_inside_bike]
+    colors = ['green', 'red']
+
+    plt.figure(figsize = (7, 7))
+    plt.pie(sizes, labels=labels, autopct = '%1.1f%%', colors=colors, startangle=90, wedgeprops= {'edgecolor': 'black'})
+    plt.title("Walk vs Inside Bike")
+    plt.show()
+
+
+
 
 
 # main() we handle the app functionality
@@ -97,11 +114,12 @@ def main():
 
         if choice == '1':
             add_date()
-
         elif choice == '2':
             start_date = get_date_from("Please enter the start date of your search (dd-mm-yyyy): ")
             end_date = get_date_from("Enter last day of your search (dd-mm-yyyy): ")
-            df = CSV.get_data_from_csc(start_date, end_date)
+            df = CSV.get_data_from_csv(start_date, end_date)
+            if input("Do you want to plot this data ? (y/n): ").lower() == 'y':
+                get_data_plot_pie(df)
         elif choice == '3':
             print("Have a good day!! Exit the program....")
             break
