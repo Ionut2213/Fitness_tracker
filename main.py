@@ -3,6 +3,9 @@ import csv
 from datetime import datetime
 import matplotlib as plt
 
+# import all the functions from data_entry.py file
+
+from data_entry import get_date_from, get_amount_of_km, get_the_category, get_note
 
 
 # Class that handle the CSV file
@@ -41,5 +44,11 @@ class CSV:
 
 
 
-CSV.initializing_csv()
-CSV.add_entry("22-03-205", 15, "walk", "outdoor walk")
+def add_date():
+    CSV.initializing_csv()
+
+    date = get_date_from("Enter the date in this format (dd-mm-yyyy): ", allow_default=True)
+    amount_of_km = get_amount_of_km()
+    category = get_the_category()
+    note = get_note()
+    CSV.add_entry(date, amount_of_km, category, note)
