@@ -38,6 +38,34 @@ class CSV:
             writer.writerow(new_data_added)
         print("Your new entry has been successfully added")
 
+    @classmethod
+    def get_data_from_csc(cls, start_date, end_date):
+        df = pd.read_csv(cls.CSV_FILE)
+        df.columns = df.columns.str.lower()
+        df["date"] = pd.to_datetime(df["date"], format=CSV.FORMAT)
+        start_date = datetime.strptime(start_date, CSV.FORMAT)
+        end_date = datetime.strptime(end_date, CSV.FORMAT)
+        mask = (df["date"] >= start_date) & (df["date"] <= end_date)
+        filered_df = df.loc[mask]
+
+
+        if filered_df.empty:
+            print("No entries found in your specified range.")
+        else:
+            print(f"Entries from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}:")
+            print(filered_df.to_string(index=False, formatters={'date': lambda x: x.strftime(CSV.FORMAT)}))
+
+            total_walk = filered_df[filered_df["category"] == "Walk"][get_amount_of_km].sum()
+            total_inside_bike = filered_df[filered_df["category"] == "Inside Bike"][get_amount_of_km].sum()
+
+            print("-------------------------")
+            print('\nSummary: ')
+            print(f"Total Walk: {total_walk:.2f}")
+            print(f"Total Inside Bike: {total_inside_bike:.2f}")
+        return filered_df
+        
+
+
 
 
 
