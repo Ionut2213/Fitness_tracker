@@ -19,3 +19,16 @@ def get_date_from(prompt, allow_default = True):
     except ValueError:
         print("You entered a wrong data format. Please enter the date in this format dd-mm-yyyy")
         return get_date_from(prompt, allow_default)
+    
+
+
+
+def get_amount_of_km():
+    try:
+        amount_of_km = float(input("Enter the amount of km: "))
+        if amount_of_km <= 0:
+            raise ValueError("Amount of km must be a positive number or greater then 0")
+        return amount_of_km
+    except ValueError as e:
+        print(e)
+        return get_amount_of_km()
