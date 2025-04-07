@@ -36,7 +36,7 @@ def get_amount_of_km():
 
 
 def get_the_category():
-    category = input("Please select a category ('W' for Walk or 'IB' for Inside Bike)").upper()
+    category = input("Please select a category ('W' for Walk or 'IB' for Inside Bike): ").upper()
     if category in CATEGORIES:
         return CATEGORIES[category]
     print("Invalid Category. Please enter 'W' for Walk or 'IB' for Inside Bike.")
@@ -45,5 +45,5 @@ def get_the_category():
 
 
 def get_note():
-    note = input("Optional you can add a note")
+    note = input("Optional you can add a note: ")
     return note if note.strip() else "No note Added"

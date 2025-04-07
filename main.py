@@ -52,3 +52,34 @@ def add_date():
     category = get_the_category()
     note = get_note()
     CSV.add_entry(date, amount_of_km, category, note)
+
+
+
+# main() we handle the app functionality
+
+def main():
+    while True:
+        print("\n1. Add a new record")
+        print("2. View all records")
+        print("3. Exit the program")
+
+        choice = input("Hello! Plese enter your choice (1-3): ")
+
+        if choice == '1':
+            add_date()
+
+        elif choice == '2':
+            break
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    main()
+
+
+
