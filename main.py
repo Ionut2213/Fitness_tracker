@@ -41,6 +41,7 @@ class CSV:
     @classmethod
     def get_data_from_csv(cls, start_date, end_date):
         df = pd.read_csv(cls.CSV_FILE)
+        df['amount_of_km'] = pd.to_numeric(df['amount_of_km'], errors='coerce')
 
         df.columns = df.columns.str.lower()
 
@@ -87,7 +88,7 @@ def add_date():
 def get_data_plot_pie(df):
 
     total_walk = df[df['category'] == 'Walk']['amount_of_km'].sum()
-    total_inside_bike = df[df['category'] == 'Inside bike']['amount_of_km'].sum()
+    total_inside_bike = df[df['category'] == 'Inside Bike']['amount_of_km'].sum()
 
     labels = ['Walk', 'Inside Bike']
     sizes = [total_walk, total_inside_bike]
